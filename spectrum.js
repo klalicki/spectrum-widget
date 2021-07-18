@@ -1,3 +1,9 @@
+let wavelengths = []
+for (let i = 300; i <= 1000; i = i + 5) {
+    wavelengths.push(i);
+}
+console.log(wavelengths);
+
 var data1 = [{
         pX: 450,
         pY: 0
@@ -141,14 +147,54 @@ function update(data) {
 
 }
 //kernel density info
-function kde(kernel, thresholds, data) {
-    return thresholds.map(t => [t, d3.mean(data, d => kernel(t - d))]);
-}
-
-function epanechnikov(bandwidth) {
-    return x => Math.abs(x /= bandwidth) <= 1 ? 0.75 * (1 - x * x) / bandwidth : 0;
-}
 
 
 // At the beginning, I run the update function on the first dataset:
 update(data1)
+// 
+let sampleData = {
+    spectra: [
+        [1, 2, 3],
+        [1, 1, 1],
+        [2, 4, 4]
+    ],
+    weights: [2, 3, 1]
+}
+
+
+
+// weight the 
+const weightValues = (spectrumDataset, weights) => {
+    return spectrumDataset.map((channelData, index) => {
+        //process each channel data
+        dB(`processing index ${index} : ${channelData}`)
+
+        return channelData.map((item) => {
+                //multiply each value within the array by the weight for it
+                dB(`processing item ${item} within channel ${index}`)
+                dB(item * weights[index])
+
+                return item * weights[index];
+            }
+
+        )
+    })
+
+}
+const sumValues = (spectrumDataset) => {
+    return spectrumDataset.reduce((acc, cur) => {
+        //iterate through array of spectrum values
+        return acc.map( (a,b)=>{
+            return a+cur[b]
+        })
+    })
+}
+
+//debugging function for test purposes - setting 'verbose' variable enables or disables console logging globally
+var verbose = true;
+
+const dB = (str) => {
+    if (verbose) {
+        console.log(str)
+    }
+}
