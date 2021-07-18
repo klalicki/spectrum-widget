@@ -3,5 +3,35 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    background-color:#2e3842;
+}
+#spectrum-canvas{
+    flex-grow: 2;
+    flex-shrink: 0;
+    flex-basis: 400px;
+    height:400px;
+}
+#spectrum-controls{
+    flex-grow: 1;
+
+    flex-shrink: 0;
+    margin: 2em;
+}
+#spectrum-controls div{
+    display: block;
+    padding-top:0.5em;
+}
+#spectrum-controls h2, #spectrum-controls label {
+color:white;
+font-family: Arial, Helvetica, sans-serif;
 }
 
+svg text {
+    fill:white;
+    opacity: 0.5;
+    font: 14px sans-serif;
+}
+svg .domain, svg .tick line {
+    stroke: white;
+    opacity: 0.5;
+}

@@ -1,63 +1,48 @@
 let wavelengths = []
-for (let i = 300; i <= 1000; i = i + 5) {
+for (let i = 300; i <= 1100; i = i + 5) {
     wavelengths.push(i);
 }
+let freqSample = [];
+let freqSample2 = []
+wavelengths.forEach((val) => {
+    let wv = (Math.floor((Math.random() * val * .25 + val) / 100));
+    freqSample.push(wv);
+    let wv2 = (Math.floor((Math.random() * val * .25 + val) / 100));
+    freqSample2.push(wv2);
+
+})
+
+const buildDataObject = (fS) => {
+    let dataObject = [];
+    wavelengths.forEach((v, i) => {
+        dataObject.push({
+            pX: v,
+            pY: fS[i]
+        });
+    });
+    return dataObject;
+}
+
+
+freqSample[160] = 0;
+freqSample[0] = 0;
+freqSample2[160] = 0;
+freqSample2[0] = 0;
+let dO = buildDataObject(freqSample);
+let dO2 = buildDataObject(freqSample2);
+
+
 console.log(wavelengths);
-
-var data1 = [{
-        pX: 450,
-        pY: 0
-    },
-    {
-        pX: 475,
-        pY: 13
-    },
-    {
-        pX: 500,
-        pY: 3
-    },
-    {
-        pX: 670,
-        pY: 7
-    },
-    {
-        pX: 720,
-        pY: 9
-    },
-    {
-        pX: 750,
-        pY: 0
-    },
-
-];
-
-var data2 = [{
-        pX: 450,
-        pY: 10
-    },
-    {
-        pX: 500,
-        pY: 15
-    },
-    {
-        pX: 550,
-        pY: 9
-    },
-    {
-        pX: 750,
-        pY: 2
-    }
-];
 
 // set the dimensions and margins of the graph
 var margin = {
-        top: 10,
+        top: 30,
         right: 30,
         bottom: 30,
         left: 50
     },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = document.getElementById('spectrum-canvas').clientWidth - margin.left - margin.right,
+    height = document.getElementById('spectrum-canvas').clientHeight - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#spectrum-canvas")
@@ -81,7 +66,7 @@ var yAxis = d3.axisLeft().scale(y);
 svg.append("g")
     .attr("class", "myYaxis")
 // add defs for gradient
-
+const rainbowOpacity=0.3
 var defs = svg.append('defs');
 var rainbowGradient = defs.append('linearGradient')
     .attr('id', 'rainbowGradient')
@@ -92,20 +77,49 @@ var rainbowGradient = defs.append('linearGradient')
 rainbowGradient.append('stop')
     .attr("class", "start")
     .attr("offset", "0%")
+    .attr("stop-color", "violet")
+    .attr("stop-opacity", rainbowOpacity);
+rainbowGradient.append('stop')
+    .attr("class", "start")
+    .attr("offset", "20%")
+    .attr("stop-color", "blue")
+    .attr("stop-opacity", rainbowOpacity);
+rainbowGradient.append('stop')
+    .attr("class", "start")
+    .attr("offset", "30%")
+    .attr("stop-color", "green")
+    .attr("stop-opacity", rainbowOpacity);
+rainbowGradient.append('stop')
+    .attr("class", "start")
+    .attr("offset", "35%")
+    .attr("stop-color", "yellow")
+    .attr("stop-opacity", rainbowOpacity);
+rainbowGradient.append('stop')
+    .attr("class", "start")
+    .attr("offset", "40%")
+    .attr("stop-color", "orange")
+    .attr("stop-opacity", rainbowOpacity);
+rainbowGradient.append('stop')
+    .attr("class", "start")
+    .attr("offset", "50%")
     .attr("stop-color", "red")
-    .attr("stop-opacity", 1);
+    .attr("stop-opacity", rainbowOpacity);
 rainbowGradient.append('stop')
     .attr("class", "start")
     .attr("offset", "100%")
-    .attr("stop-color", "blue")
-    .attr("stop-opacity", 1);
+    .attr("stop-color", "black")
+    .attr("stop-opacity", rainbowOpacity);
+
+
+
 // Create a function that takes a dataset as input and update the plot:
-function update(data) {
+function update(data,time) {
 
     // Create the X axis:
-    x.domain([440, 760]);
-    svg.selectAll(".myXaxis").transition()
-        .duration(3000)
+    x.domain([300, 1100]);
+    svg.selectAll(".myXaxis")
+        //.transition()
+        // .duration(3000)
         .call(xAxis);
 
     // create the Y axis
@@ -113,8 +127,8 @@ function update(data) {
         return d.pY
     })]);
     svg.selectAll(".myYaxis")
-        .transition()
-        .duration(3000)
+        // .transition()
+        // .duration(3000)
         .call(yAxis);
 
     // Create a update selection: bind to the new data
@@ -130,7 +144,7 @@ function update(data) {
         .attr("class", "userSpecLine")
         .merge(u)
         .transition()
-        .duration(3000)
+        .duration(time)
         .attr("d", d3.line()
             .x(function (d) {
                 return x(d.pX);
@@ -138,19 +152,19 @@ function update(data) {
             .y(function (d) {
                 return y(d.pY);
             })
-            .curve(d3.curveCatmullRom.alpha(0.5))
+            .curve(d3.curveBasis)
         )
         //.curve()
         .attr("fill", "url(#rainbowGradient")
-    //  .attr("stroke", "steelblue")
-    // .attr("stroke-width", 2.5)
+        .attr("stroke", "white")
+        .attr("stroke-width", 1)
 
 }
 //kernel density info
 
 
 // At the beginning, I run the update function on the first dataset:
-update(data1)
+update(dO,0)
 // 
 let sampleData = {
     spectra: [
@@ -163,7 +177,7 @@ let sampleData = {
 
 
 
-// weight the 
+// weight the values
 const weightValues = (spectrumDataset, weights) => {
     return spectrumDataset.map((channelData, index) => {
         //process each channel data
@@ -184,8 +198,8 @@ const weightValues = (spectrumDataset, weights) => {
 const sumValues = (spectrumDataset) => {
     return spectrumDataset.reduce((acc, cur) => {
         //iterate through array of spectrum values
-        return acc.map( (a,b)=>{
-            return a+cur[b]
+        return acc.map((a, b) => {
+            return a + cur[b]
         })
     })
 }
