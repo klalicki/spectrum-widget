@@ -1,3 +1,5 @@
+body{margin:0;}
+
 .widget-container {
     display: flex;
     position: relative;
@@ -5,17 +7,18 @@
     flex-wrap: wrap;
     justify-content: center;
     background-color: #2e3842;
-    padding: 3rem;
+    padding: 1.5rem;
 }
 
 .widget-container::after {
     content: "";
     border: 3px solid #9fe148;
     position: absolute;
-    top: 1.5rem;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    right: 1.5rem;
+    top: .5rem;
+    bottom: .5rem;
+    left: .5rem;
+    right: .5rem;
+    pointer-events: none;
 }
 
 #spectrum-canvas {
@@ -28,7 +31,7 @@
 #spectrum-controls {
     flex-grow: 1;
 
-    flex-shrink: 0;
+    flex-shrink: 1;
     margin: 2em;
 }
 
@@ -55,7 +58,7 @@ svg .tick line {
     opacity: 0.5;
 }
 
-/* slider styling    */
+/* slider styling   */
 input[type=range] {
     width: 100%;
     margin: 8px 0;
@@ -139,7 +142,7 @@ input[type=range]::-ms-thumb {
     border-radius: 6px;
     cursor: pointer;
     margin-top: 0px;
-    /*Needed to keep the Edge thumb centred*/
+    
 }
 
 input[type=range]:focus::-ms-fill-lower {
@@ -150,13 +153,3 @@ input[type=range]:focus::-ms-fill-upper {
     background: #000000;
 }
 
-/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
-  how to remove the virtical space around the range input in IE*/
-@supports (-ms-ime-align:auto) {
-
-    /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
-    input[type=range] {
-        margin: 0;
-        /*Edge starts the margin from the thumb, not the track as other browsers do*/
-    }
-}
