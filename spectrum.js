@@ -42,7 +42,7 @@ var margin = {
         left: 50
     },
     width = document.getElementById('spectrum-canvas').clientWidth - margin.left - margin.right,
-    height = document.getElementById('spectrum-canvas').clientHeight - margin.top - margin.bottom;
+    height = document.getElementById('spectrum-controls').clientHeight - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#spectrum-canvas")
