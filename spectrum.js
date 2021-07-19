@@ -230,23 +230,35 @@ const smoothValues = (arr) => {
         dB(`main value: ${val}`);
         if (typeof arr2[ind - 1] === 'number') {
             coll.push(arr2[ind - 1])
+        } else {
+            coll.push(0)
         };
         dB(`previous: ${arr2[ind - 1]}`);
         if (typeof arr2[ind + 1] === 'number') {
             coll.push(arr2[ind + 1])
-        };
+        } else {
+            coll.push(0)
+        };;
         if (typeof arr2[ind + 2] === 'number') {
             coll.push(arr2[ind + 2])
-        };
+        } else {
+            coll.push(0)
+        };;
         if (typeof arr2[ind - 2] === 'number') {
             coll.push(arr2[ind - 2])
-        };
+        } else {
+            coll.push(0)
+        };;
         if (typeof arr2[ind + 3] === 'number') {
             coll.push(arr2[ind + 3])
-        };
+        } else {
+            coll.push(0)
+        };;
         if (typeof arr2[ind - 3] === 'number') {
             coll.push(arr2[ind - 3])
-        };
+        } else {
+            coll.push(0)
+        };;
         dB(`next: ${arr2[ind + 1]}`);
         dB(`array: ${coll}`);
 
@@ -267,18 +279,24 @@ const smoothValues = (arr) => {
 let DS1 = weightValues(dataset, factors);
 let DS2 = sumValues(DS1);
 let DS2Smooth = smoothValues(DS2);
-
+DS2Smooth[0] = 0;
+DS2Smooth[DS2Smooth.length] = 0;
 let DS3Smooth = buildDataObject(DS2Smooth);
 update(DS3Smooth);
 
+
+
+//production update functions
 
 const rebuildData = () => {
     let DS1 = weightValues(dataset, factors);
     let DS2 = sumValues(DS1);
     let DS2Smooth = smoothValues(DS2);
+    DS2Smooth[0] = 0;
+    DS2Smooth[DS2Smooth.length] = 0;
 
     let DS3Smooth = buildDataObject(DS2Smooth);
-    update(DS3Smooth,1000);
+    update(DS3Smooth, 1000);
 }
 
 const getFactors = () => {
