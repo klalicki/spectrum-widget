@@ -1,6 +1,5 @@
 //BEGIN TEST DATA
 
-
 let dataset = [
     ["1", "1", "1", "1", "2", "2", "2", "2", "4", "4", "4", "4", "8", "8", "8", "8", "10", "10", "12", "12", "10", "10", "8", "8", "8", "8", "4", "4", "4", "4", "2", "2", "2", "1", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "1", "1", "1", "1", "2", "2", "2", "2", "4", "4", "4", "4", "8", "8", "8", "8", "10", "10", "12", "12", "10", "10", "8", "8", "8", "8", "4", "4", "4", "4", "2", "2", "2", "1", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
@@ -41,9 +40,6 @@ const buildDataObject = (fS) => {
 }
 
 
-
-
-console.log(wavelengths);
 
 // set the dimensions and margins of the graph
 var margin = {
@@ -172,17 +168,6 @@ function update(data, time) {
 
 }
 
-// At the beginning, I run the update function on the first dataset:
-// 
-let sampleData = {
-    spectra: [
-        [1, 2, 3],
-        [1, 1, 1],
-        [2, 4, 4]
-    ],
-    weights: [2, 3, 1]
-}
-
 
 
 // weight the values
@@ -214,7 +199,6 @@ const sumValues = (spectrumDataset) => {
 
 //debugging function for test purposes - setting 'verbose' variable enables or disables console logging globally
 var verbose = true;
-
 const dB = (str) => {
     if (verbose) {
         console.log(str)
@@ -305,7 +289,23 @@ const getFactors = () => {
     }
 }
 
+//function for event handler - reads multiplier data from the UI, rebuilds the dataset, and updates the graph.
 const updateRebuild = () => {
     getFactors();
     rebuildData();
+}
+
+const resizeD3 = () => {
+    margin = {
+        top: 30,
+        right: 30,
+        bottom: 30,
+        left: 50
+    };
+    width = document.getElementById('spectrum-canvas').clientWidth - margin.left - margin.right;
+    height = document.getElementById('spectrum-controls').clientHeight - margin.top - margin.bottom;
+
+    svg.attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
 }
