@@ -82,14 +82,17 @@ var margin = {
         bottom: 30,
         left: 50
     },
-    width = document.getElementById('spectrum-canvas').clientWidth - margin.left - margin.right,
-    height = document.getElementById('spectrum-controls').clientHeight - margin.top - margin.bottom;
+    width = 500,
+    height = 300;
+
+// width = document.getElementById('spectrum-canvas').clientWidth - margin.left - margin.right,
+// height = document.getElementById('spectrum-controls').clientHeight - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#spectrum-canvas")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", "0 0 580 380")
+    .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
     .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
