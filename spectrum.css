@@ -38,8 +38,13 @@ body {
 }
 
 #spectrum-controls div {
-    display: block;
-    padding-top: 0.5em;
+  display: block;
+  width: auto;
+   display: grid;
+    grid-template-columns: max-content auto;
+    row-gap:.75rem;
+
+    column-gap: .25rem;
 }
 
 #spectrum-controls h2,
@@ -47,6 +52,15 @@ body {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
 }
+#spectrum-controls label{
+    font-size: 0.9rem;
+    letter-spacing: 1%;
+    opacity: 0.75;
+    margin: 0;
+    text-align: right;
+    transform: translateY(0.15em); */
+}
+
 
 svg {
     width: 100%;
@@ -56,7 +70,7 @@ svg {
 svg text {
     fill: white;
     opacity: 0.75;
-    font: 1em sans-serif;
+    font: 1rem sans-serif;
 }
 
 svg .domain,
@@ -69,7 +83,7 @@ svg .tick line {
 
 input[type=range] {
     width: 100%;
-    margin: 3.5px 0;
+    /* margin: 3.5px 0; */
     background-color: transparent;
     -webkit-appearance: none;
   }

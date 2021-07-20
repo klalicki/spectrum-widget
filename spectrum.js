@@ -108,11 +108,13 @@ const buildDisplayDataObject = (fS) => {
 
 //initialize UI using values from dataset
 const buildUI = () => {
+    let newControls="";
     dataSetObject.channels.forEach((obj, index) => {
-        d3.select('#spectrum-controls').insert("div").html(`<label for="ch${index}">${obj.name}</label>
-        <input type="range" name="ch${index}" id="ch${index}" data-channel="${index}" min="0" max="10" value="10" onchange="updateRebuild()">`);
-        dB(`item at index ${index} equals ${obj}`)
-    })
+        newControls=newControls+`<label for="ch${index}">${obj.name}</label>
+        <input type="range" name="ch${index}" id="ch${index}" data-channel="${index}" min="0" max="10" value="10" onchange="updateRebuild()">`;
+        //dB(`item at index ${index} equals ${obj}`)
+    });
+    d3.select('#spectrum-controls').insert("div").html(newControls);
 }
 //load all multiplier values from form elements
 const getFactors = () => {
@@ -296,6 +298,8 @@ const sumValues = (spectrumDataset) => {
 
 //a simple function to smooth out the line, by averaging each element with the two nearest it
 const smoothValues = (arr) => {
+   // return arr;
+    //no smoothing needed on the production data;
     return arr.map((val, ind, arr2) => {
         coll = [val];
         coll.push(val);
@@ -322,16 +326,16 @@ const smoothValues = (arr) => {
         } else {
             coll.push(0)
         };;
-        if (typeof arr2[ind + 3] === 'number') {
-            coll.push(arr2[ind + 3])
-        } else {
-            coll.push(0)
-        };;
-        if (typeof arr2[ind - 3] === 'number') {
-            coll.push(arr2[ind - 3])
-        } else {
-            coll.push(0)
-        };;
+        // if (typeof arr2[ind + 3] === 'number') {
+        //     coll.push(arr2[ind + 3])
+        // } else {
+        //     coll.push(0)
+        // };;
+        // if (typeof arr2[ind - 3] === 'number') {
+        //     coll.push(arr2[ind - 3])
+        // } else {
+        //     coll.push(0)
+        // };;
         dB(`next: ${arr2[ind + 1]}`);
         dB(`array: ${coll}`);
 
