@@ -1,6 +1,20 @@
 body {
     margin: 0;
 }
+.preset-buttons{
+    display:flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.preset-buttons button{
+    padding:.5rem;
+    border:2px solid #9fe148;
+    background: none;
+    color:white;
+    font-weight: bold;;
+    font-size: 1.25rem;;
+}
+
 
 .widget-container {
     display: flex;

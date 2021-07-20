@@ -114,7 +114,7 @@ const buildUI = () => {
     let newControls = "";
     dataSetObject.channels.forEach((obj, index) => {
         newControls = newControls + `<label for="ch${index}">${obj.name}</label>
-        <input type="range" name="ch${index}" id="ch${index}" data-channel="${index}" min="0" max="50" value="50" onchange="updateRebuild()">`;
+        <input type="range" name="ch${index}" id="ch${index}" data-channel="${index}" min="0" max="100" value="100" onchange="updateRebuild()">`;
         //dB(`item at index ${index} equals ${obj}`)
     });
     d3.select('#spectrum-controls').insert("div").html(newControls);
@@ -128,13 +128,20 @@ const buildUI = () => {
 }
 
 const loadPreset = (presetID) => {
-    if(presetList[presetID].isRandom){
+    if (presetList[presetID].isRandom) {
         //code for random generator
+        liveData.factors=liveData.factors.map(()=>{
+            return Math.floor(Math.random()*100)
+        })
+    } else {
+        liveData.factors = presetList[presetID].factors;
+        
 
-    }else{
-        liveData.factors=presetList[presetID].factors;
-        rebuildData();
     }
+    liveData.factors.forEach((factor, index) => {
+        document.getElementById(`ch${index}`).value = factor;
+    });
+    rebuildData();
 }
 //load all multiplier values from form elements
 const getFactors = () => {
