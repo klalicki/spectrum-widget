@@ -1,3 +1,30 @@
+//debugging function for test purposes - setting 'verbose' variable enables or disables console logging globally
+var verbose = true;
+const dB = (str) => {
+    if (verbose) {
+        console.log(str)
+    }
+}
+//actual production data below
+let wavelengths = []
+for (let i = 300; i <= 1100; i = i + 5) {
+    wavelengths.push(i);
+}
+
+
+const dataSetObject = {
+    wavelengths: wavelengths,
+    channels: [{
+        name: 'channel 1',
+        channelColor: '#F2F200',
+        values: ["1", "1", "1", "1", "2", "2", "2", "2", "4", "4", "4", "4", "8", "8", "8", "8", "10", "10", "12", "12", "10", "10", "8", "8", "8", "8", "4", "4", "4", "4", "2", "2", "2", "1", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+
+
+
+
+    }, ]
+}
+
 //BEGIN TEST DATA
 
 let dataset = [
@@ -6,39 +33,46 @@ let dataset = [
     ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "1", "1", "1", "1", "2", "2", "2", "2", "4", "4", "4", "4", "8", "8", "8", "8", "10", "10", "12", "12", "10", "10", "8", "8", "8", "8", "4", "4", "4", "4", "2", "2", "2", "1", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "1", "1", "1", "1", "2", "2", "2", "2", "4", "4", "4", "4", "8", "8", "8", "8", "10", "10", "12", "12", "10", "10", "8", "8", "8", "8", "4", "4", "4", "4", "2", "2", "2", "1", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]
 ]
+let channelNames = ['ch1', 'ch2', 'ch3', 'ch4'];
 let factors = [10, 10, 10, 10];
 
 //END TEST DATA
 
 
-//actual production data below
-let wavelengths = []
-for (let i = 300; i <= 1100; i = i + 5) {
-    wavelengths.push(i);
-}
 
 
-let freqSample = [];
-let freqSample2 = []
-wavelengths.forEach((val) => {
-    let wv = (Math.floor((Math.random() * val * .25 + val) / 100));
-    freqSample.push(wv);
-    let wv2 = (Math.floor((Math.random() * val * .25 + val) / 100));
-    freqSample2.push(wv2);
 
-})
-
-const buildDataObject = (fS) => {
-    let dataObject = [];
-    wavelengths.forEach((v, i) => {
-        dataObject.push({
+const buildDisplayDataObject = (fS) => {
+    let displayDataObject = [];
+    dataSetObject.wavelengths.forEach((v, i) => {
+        displayDataObject.push({
             pX: v,
             pY: fS[i]
         });
     });
-    return dataObject;
+    return displayDataObject;
+}
+//UI FUNCTIONS
+
+//initialize UI using values from dataset
+const buildUI = () => {
+    channelNames.forEach((value, index) => {
+        d3.select('#spectrum-controls').insert("div").html(`<label for="ch${index}">${value}</label>
+        <input type="range" name="ch${index}" id="ch${index}" data-channel="${index}" min="0" max="10" value="10" onchange="updateRebuild()">`);
+        dB(`item at index ${index} equals ${value}`)
+    })
+}
+//load all multiplier values from form elements
+const getFactors = () => {
+    for (let i = 0; i < 4; i++) {
+        factors[i] = document.getElementById(`ch${i}`).value;
+    }
 }
 
+
+
+//Build the UI before initializing D3
+buildUI();
 
 
 // set the dimensions and margins of the graph
@@ -197,13 +231,7 @@ const sumValues = (spectrumDataset) => {
     })
 }
 
-//debugging function for test purposes - setting 'verbose' variable enables or disables console logging globally
-var verbose = true;
-const dB = (str) => {
-    if (verbose) {
-        console.log(str)
-    }
-}
+
 
 //a simple function to smooth out the line, by averaging each element with the two nearest it
 const smoothValues = (arr) => {
@@ -265,7 +293,7 @@ let DS2 = sumValues(DS1);
 let DS2Smooth = smoothValues(DS2);
 DS2Smooth[0] = 0;
 DS2Smooth[DS2Smooth.length] = 0;
-let DS3Smooth = buildDataObject(DS2Smooth);
+let DS3Smooth = buildDisplayDataObject(DS2Smooth);
 update(DS3Smooth);
 
 
@@ -279,15 +307,11 @@ const rebuildData = () => {
     DS2Smooth[0] = 0;
     DS2Smooth[DS2Smooth.length] = 0;
 
-    let DS3Smooth = buildDataObject(DS2Smooth);
+    let DS3Smooth = buildDisplayDataObject(DS2Smooth);
     update(DS3Smooth, 1000);
 }
 
-const getFactors = () => {
-    for (let i = 0; i < 4; i++) {
-        factors[i] = document.getElementById(`ch${i+1}`).value;
-    }
-}
+
 
 //function for event handler - reads multiplier data from the UI, rebuilds the dataset, and updates the graph.
 const updateRebuild = () => {
