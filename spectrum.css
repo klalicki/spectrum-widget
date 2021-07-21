@@ -1,10 +1,17 @@
+
+
 body {
     margin: 0;
+}
+
+label:focus{
+        background: green;;
 }
 .preset-buttons{
     display:flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    padding:1.5rem;
 }
 .preset-buttons button{
     padding:.5rem;
@@ -13,8 +20,15 @@ body {
     color:white;
     font-weight: bold;;
     font-size: 1.25rem;;
+    cursor:pointer;
+    transition: 0.3s all;
+    border-radius: .25rem;
 }
-
+.preset-buttons button:hover, .preset-buttons button:focus{
+    background:#9fe148;
+    color:black;
+    transition:0.3s all
+}
 
 .widget-container {
     display: flex;
@@ -218,4 +232,8 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     /* outline: 2px solid greenyellow ;
     outline-offset: 3px; */
     box-shadow: greenyellow;
+}
+
+input[type=range]:focus + label {
+    background-color: yellow;
 }
