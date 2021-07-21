@@ -234,6 +234,3 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     box-shadow: greenyellow;
 }
 
-input[type=range]:focus + label {
-    background-color: yellow;
-}
