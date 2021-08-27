@@ -319,6 +319,7 @@ u
     )
     // .curve()
     .attr("stroke", "white")
+    .attr("fill","none")
     .attr("stroke-width", 2)
 }
 
