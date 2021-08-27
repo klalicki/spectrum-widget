@@ -76,7 +76,7 @@ const dataSetObject = {
 }
 
 for (const item in inputDataV2) {
-    console.log(item);
+    dB(item);
     dataSetObject.channels.push({
         name: item,
         channelColor: '#F2F200',
@@ -292,7 +292,35 @@ function update(data, time) {
 
 }
 
+// draw line for chlorophyll/fixed data
 
+const drawFixedLine=(data,time)=>{
+    var u = svg.selectAll(".fixedLine")
+    .data([data], function (d) {
+        return d.pX
+    });
+
+// Updata the line
+u
+    .enter()
+    .append("path")
+    .attr("class", "fixedLine")
+    .merge(u)
+    .transition()
+    .duration(time)
+    .attr("d", d3.line()
+        .x(function (d) {
+            return x(d.pX);
+        })
+        .y(function (d) {
+            return y(d.pY);
+        })
+        .curve(d3.curveBasis)
+    )
+    // .curve()
+    .attr("stroke", "white")
+    .attr("stroke-width", 2)
+}
 
 // weight the values
 const weightValues = (weights) => {
@@ -394,7 +422,7 @@ const smoothValues = (arr) => {
 }
 
 
-// test functions
+// build graph with initial data
 getFactors();
 let DS1 = weightValues(liveData.factors);
 let DS2 = sumValues(DS1);
@@ -424,3 +452,63 @@ const updateRebuild = () => {
     getFactors();
     rebuildData();
 }
+
+
+//sample data for testing second function
+
+const chloroData=[
+    {
+      pX: "405.4811205846529",
+      pY: " 4.006968641114982"
+    },
+    {
+      pX: "412.42387332521315",
+      pY: " 5.2613240418118465"
+    },
+    {
+      pX: "417.17417783191235",
+      pY: " 5.104529616724738"
+    },
+    {
+      pX: "437.63702801461636",
+      pY: " 7.2125435540069684"
+    },
+    {
+      pX: "487.33252131546897",
+      pY: " 0.33101045296167086"
+    },
+    {
+      pX: "503.04506699147385",
+      pY: " 0.10452961672473826"
+    },
+    {
+      pX: "572.1071863580999",
+      pY: " 0.9233449477351918"
+    },
+    {
+      pX: "541.4129110840438",
+      pY: " 0.6097560975609753"
+    },
+    {
+      pX: "595.8587088915956",
+      pY: " 0.7491289198606257"
+    },
+    {
+      pX: "633.1303288672351",
+      pY: " 1.2891986062717766"
+    },
+    {
+      pX: "655.7856272838003",
+      pY: " 0.8710801393728218"
+    },
+    {
+      pX: "687.21071863581",
+      pY: " 5.2264808362369335"
+    },
+    {
+      pX: "706.5773447015835",
+      pY: " 0.06968641114982432"
+    }
+   ]
+   
+   drawFixedLine(chloroData,0);
